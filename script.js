@@ -83,7 +83,6 @@ function resetPuzzle() {
 
 // Event listener para o botão de reinício
 document.getElementById('reset').addEventListener('click', () => {
-    currentImageIndex = (currentImageIndex + 1) % images.length; // Avança para a próxima imagem
     resetPuzzle(); // Reinicia o quebra-cabeça
 });
 
