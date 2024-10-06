@@ -1,34 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle Love</title>
     <link rel="stylesheet" href="styles.css">
+    <title>Puzzle Love</title>
 </head>
 <body>
-    <header>
-        <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button> <!-- Ícone de menu -->
-        <h1>Puzzle Love</h1>
-    </header>
-
-    <div class="sidebar" id="sidebar">
-        <ul>
-            <li><button onclick="loadImage('imagem1.jpg')">Imagem 1</button></li>
-            <li><button onclick="loadImage('imagem2.jpg')">Imagem 2</button></li>
-            <!-- Adicione mais botões para as imagens -->
-        </ul>
-    </div>
-
-    <main>
-        <div class="puzzle-container">
-            <img id="puzzle-image" src="imagem1.jpg" alt="Imagem 1">
-            <div id="puzzle-pieces">
-                <!-- Peças do quebra-cabeça geradas aqui -->
-            </div>
-        </div>
-    </main>
-
+    <h1 id="title">Puzzle Love</h1>
+    <div id="puzzle-container"></div>
+    <button id="reset">Recomeçar</button>
     <script src="script.js"></script>
 </body>
 </html>
