@@ -8,7 +8,6 @@ const size = 4; // Tamanho do grid (4x4)
 // Função para criar as peças do quebra-cabeça
 function createPuzzle(imageSrc) {
     const pieces = [];
-
     puzzleContainer.innerHTML = ''; // Limpa o contêiner
 
     // Criando as peças e atribuindo posição correta
@@ -18,7 +17,8 @@ function createPuzzle(imageSrc) {
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
-            piece.dataset.correctIndex = i * size + j; // Atribui o índice correto da peça (0 a 15)
+            piece.dataset.correctIndex = i * size + j; // Atribui o índice correto da peça
+            piece.dataset.currentIndex = i * size + j; // Atribui o índice atual da peça inicialmente
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -39,12 +39,7 @@ function createPuzzle(imageSrc) {
     }
 
     // Embaralha as peças
-    for (let i = pieces.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [pieces[i], pieces[j]] = [pieces[j], pieces[i]]; // Troca as peças
-        pieces[i].dataset.currentIndex = i; // Atualiza o índice atual após embaralhar
-        pieces[j].dataset.currentIndex = j;
-    }
+    shuffleArray(pieces); // Embaralha as peças usando a função shuffleArray
 
     pieces.forEach((piece, index) => {
         piece.dataset.currentIndex = index; // Define a posição atual da peça
@@ -52,6 +47,14 @@ function createPuzzle(imageSrc) {
     });
 
     updateCorrectCount(); // Conta peças corretas ao iniciar
+}
+
+// Função para embaralhar as peças
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Troca as peças
+    }
 }
 
 // Função para trocar as peças
@@ -77,6 +80,7 @@ function updateCorrectCount() {
     let correctCount = 0;
 
     document.querySelectorAll('.piece').forEach(piece => {
+        // Verifica se o índice correto é igual ao índice atual
         if (piece.dataset.correctIndex === piece.dataset.currentIndex) {
             correctCount++; // Incrementa se a peça estiver no lugar correto
         }
