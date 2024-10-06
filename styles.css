@@ -52,3 +52,23 @@ button {
 button:hover {
     background-color: #0056b3; /* Cor do botão ao passar o mouse */
 }
+
+#next {
+    position: fixed; /* Botão fixo na tela */
+    bottom: 20px; /* Distância da parte inferior */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajusta para centralizar */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745; /* Cor do botão */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none; /* Inicialmente escondido */
+    transition: background-color 0.2s;
+}
+
+#next:hover {
+    background-color: #218838; /* Cor do botão ao passar o mouse */
+}
