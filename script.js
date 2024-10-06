@@ -77,7 +77,7 @@ function isPuzzleComplete() {
 
 // Função para reiniciar o quebra-cabeça
 function resetPuzzle() {
-    puzzleContainer.innerHTML = '';
+    puzzleContainer.innerHTML = ''; // Limpa as peças atuais
     createPuzzle(images[currentImageIndex]); // Carrega a próxima imagem
 }
 
