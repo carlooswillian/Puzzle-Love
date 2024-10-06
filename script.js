@@ -1,6 +1,6 @@
 const images = ['images/imagem1.jpg', 'images/imagem2.jpg', 'images/imagem3.jpg', 'images/imagem4.jpg', 'images/imagem5.jpg'];
 const puzzleContainer = document.getElementById('puzzle-container');
-const correctCountElement = document.getElementById('correct-count'); // Seleciona o elemento do contador
+const correctCountElement = document.getElementById('correct-count');
 
 let selectedPiece = null; // A peça atualmente selecionada
 
@@ -10,16 +10,15 @@ function createPuzzle(imageSrc) {
     const size = 4; // 4x4 grid
     puzzleContainer.innerHTML = ''; // Limpa o contêiner
 
+    // Criando as peças e atribuindo posição correta
     for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
             const piece = document.createElement('div');
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
-
-            const correctIndex = i * size + j; // Índice correto da peça, com base em sua posição na grade
-            piece.dataset.correctIndex = correctIndex; // Armazena o índice correto da peça
-            piece.dataset.currentIndex = correctIndex; // Inicialmente, o índice atual é igual ao correto
+            piece.dataset.correctIndex = i * size + j; // Atribui o índice correto da peça
+            piece.dataset.currentIndex = i * size + j; // Atribui o índice atual da peça inicialmente
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -51,12 +50,13 @@ function createPuzzle(imageSrc) {
 
 // Função para trocar as peças
 function swapPieces(piece1, piece2) {
-    // Troca o índice atual das peças
     const tempIndex = piece1.dataset.currentIndex;
+
+    // Troca os índices atuais
     piece1.dataset.currentIndex = piece2.dataset.currentIndex;
     piece2.dataset.currentIndex = tempIndex;
 
-    // Troca as posições visuais das peças
+    // Troca as posições das imagens
     const tempBackground = piece1.style.backgroundImage;
     const tempPosition = piece1.style.backgroundPosition;
 
@@ -72,8 +72,7 @@ function updateCorrectCount() {
     let correctCount = 0;
 
     document.querySelectorAll('.piece').forEach(piece => {
-        // Verifica se o índice atual da peça é igual ao seu índice correto
-        if (parseInt(piece.dataset.currentIndex) === parseInt(piece.dataset.correctIndex)) {
+        if (piece.dataset.correctIndex === piece.dataset.currentIndex) {
             correctCount++; // Incrementa se a peça estiver no lugar correto
         }
     });
