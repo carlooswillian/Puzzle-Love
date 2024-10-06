@@ -63,7 +63,7 @@ button:hover {
     transform: translateX(-50%); /* Ajusta para centralizar */
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #28a745; /* Cor do botão */
+    background-color: #000000; /* Cor do botão */
     color: white;
     border: none;
     border-radius: 5px;
