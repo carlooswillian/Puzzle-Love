@@ -1,115 +1,28 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-}
-
-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f4f4f4;
-    padding: 10px;
-    position: relative;
-}
-
-#sidebar-toggle {
-    position: absolute;
-    left: 10px; /* Move o botão para o lado esquerdo */
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    padding: 5px;
-}
-
-h1 {
-    margin: 0;
-    text-align: center;
-    font-size: 4vw;
-}
-
-.sidebar {
-    position: fixed;
-    left: -200px; /* Inicia fora da tela */
-    top: 0;
-    width: 200px;
-    height: 100%;
-    background-color: #ddd;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-    transition: left 0.3s ease; /* Transição suave */
-}
-
-.sidebar.open {
-    left: 0; /* Quando aberta, ocupa a tela */
-}
-
-.puzzle-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    margin-left: 0;
-    box-sizing: border-box;
-    transition: margin-left 0.3s ease; /* Ajusta suavemente o layout */
+    background-color: #e0f7fa;
 }
 
-#puzzle-image {
-    width: 75%; /* Proporção 3:4 */
-    max-width: 600px;
-    aspect-ratio: 3/4;
-    object-fit: cover;
+#puzzle-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 5px;
+    margin: 20px;
 }
 
-#puzzle-pieces {
+.piece {
+    width: 100px;
+    height: 100px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-    width: 100%;
-}
-
-.puzzle-piece {
-    background-color: rgba(0, 0, 255, 0.5);
-    margin: 5px;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    justify-content: center;
+    cursor: pointer;
 }
 
-/* Responsividade para dispositivos menores */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 150px;
-    }
-
-    .puzzle-piece {
-        width: 60px;
-        height: 60px;
-    }
-}
-
-@media (max-width: 480px) {
-    header {
-        padding: 5px;
-    }
-
-    .sidebar {
-        width: 100px;
-    }
-
-    #puzzle-image {
-        width: 90%;
-    }
-
-    .puzzle-piece {
-        width: 40px;
-        height: 40px;
-    }
+h1 {
+    text-align: center;
 }
