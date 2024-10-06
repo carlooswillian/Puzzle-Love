@@ -1,32 +1,30 @@
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    if (sidebar.classList.contains('open')) {
-        sidebar.classList.remove('open'); // Fecha a aba se estiver aberta
-    } else {
-        sidebar.classList.add('open'); // Abre a aba se estiver fechada
+const images = ['imagem1.jpg', 'imagem2.jpg', 'imagem3.jpg', 'imagem4.jpg', 'imagem5.jpg'];
+const puzzleContainer = document.getElementById('puzzle-container');
+
+function createPuzzle(imageSrc) {
+    const pieces = [];
+    const size = 4; // 4x4 grid
+
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            const piece = document.createElement('div');
+            piece.className = 'piece';
+            piece.style.backgroundImage = `url(${imageSrc})`;
+            piece.style.backgroundPosition = `-${j * 100}px -${i * 100}px`;
+            pieces.push(piece);
+        }
     }
+
+    // Embaralha as peças
+    pieces.sort(() => Math.random() - 0.5);
+
+    pieces.forEach(piece => puzzleContainer.appendChild(piece));
 }
 
-function loadImage(image) {
-    document.getElementById('puzzle-image').src = image;
-    generatePuzzlePieces();
-}
+document.getElementById('reset').addEventListener('click', () => {
+    puzzleContainer.innerHTML = '';
+    createPuzzle(images[0]); // Altere para selecionar outra imagem
+});
 
-function generatePuzzlePieces() {
-    const puzzlePiecesContainer = document.getElementById('puzzle-pieces');
-    puzzlePiecesContainer.innerHTML = ''; // Limpa as peças anteriores
-
-    // Exemplo: gerar peças aleatórias
-    for (let i = 0; i < 20; i++) {
-        const piece = document.createElement('div');
-        piece.className = 'puzzle-piece';
-        piece.style.width = '100px'; // Ajustar conforme os tamanhos e formatos
-        piece.style.height = '100px';
-        piece.style.backgroundColor = 'rgba(0, 0, 255, 0.5)';
-        piece.innerText = i + 1;
-        puzzlePiecesContainer.appendChild(piece);
-    }
-}
-
-// Gera peças ao carregar a página
-generatePuzzlePieces();
+// Cria o quebra-cabeça inicial
+createPuzzle(images[0]);
