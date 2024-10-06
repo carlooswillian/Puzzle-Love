@@ -2,24 +2,27 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
+    background-color: #e0f7fa;
 }
 
 #puzzle-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 100px);
-    gap: 2px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(4, 75px); /* 4 peças de 75px cada */
+    grid-gap: 5px;
+    margin: 20px;
+    width: 300px; /* Largura total para 4 peças */
+    height: 400px; /* Altura total para 4 peças na proporção 3:4 */
 }
 
 .piece {
-    width: 75px; /* Tamanho das peças */
-    height: 100px; /* Tamanho das peças */
-    background-size: 300px 400px; /* Tamanho da imagem original */
+    width: 75px; /* Largura da peça */
+    height: 100px; /* Altura da peça (proporção 3:4) */
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: border 0.2s;
+    background-size: 300px 400px; /* Ajuste de tamanho para o fundo */
+    background-repeat: no-repeat; /* Garante que a imagem não se repita */
 }
