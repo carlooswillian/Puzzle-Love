@@ -8,15 +8,17 @@
 </head>
 <body>
     <header>
+        <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button> <!-- Ícone de menu -->
         <h1>Puzzle Love</h1>
-        <div class="sidebar">
-            <ul>
-                <li><button onclick="loadImage('imagem1.jpg')">Imagem 1</button></li>
-                <li><button onclick="loadImage('imagem2.jpg')">Imagem 2</button></li>
-                <!-- Adicione mais botões para as imagens -->
-            </ul>
-        </div>
     </header>
+
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><button onclick="loadImage('imagem1.jpg')">Imagem 1</button></li>
+            <li><button onclick="loadImage('imagem2.jpg')">Imagem 2</button></li>
+            <!-- Adicione mais botões para as imagens -->
+        </ul>
+    </div>
 
     <main>
         <div class="puzzle-container">
