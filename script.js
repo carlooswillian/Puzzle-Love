@@ -17,9 +17,9 @@ function createPuzzle(imageSrc) {
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
 
-            const correctIndex = i * size + j; // Calcula o índice correto da peça
-            piece.dataset.correctIndex = correctIndex; // Índice correto da peça
-            piece.dataset.currentIndex = correctIndex; // Índice atual da peça
+            const correctIndex = i * size + j; // Índice correto da peça
+            piece.dataset.correctIndex = correctIndex; // Armazena o índice correto
+            piece.dataset.currentIndex = correctIndex; // Inicialmente, o índice atual é igual ao correto
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -51,17 +51,20 @@ function createPuzzle(imageSrc) {
 
 // Função para trocar as peças
 function swapPieces(piece1, piece2) {
+    // Troca o índice atual das peças
+    const tempIndex = piece1.dataset.currentIndex;
+    piece1.dataset.currentIndex = piece2.dataset.currentIndex;
+    piece2.dataset.currentIndex = tempIndex;
+
+    // Troca as posições visuais das peças
     const tempBackground = piece1.style.backgroundImage;
     const tempPosition = piece1.style.backgroundPosition;
-    const tempIndex = piece1.dataset.currentIndex;
 
     piece1.style.backgroundImage = piece2.style.backgroundImage;
     piece1.style.backgroundPosition = piece2.style.backgroundPosition;
-    piece1.dataset.currentIndex = piece2.dataset.currentIndex;
 
     piece2.style.backgroundImage = tempBackground;
     piece2.style.backgroundPosition = tempPosition;
-    piece2.dataset.currentIndex = tempIndex;
 }
 
 // Função para contar quantas peças estão no lugar correto
@@ -74,7 +77,7 @@ function updateCorrectCount() {
         }
     });
 
-    correctCountElement.textContent = `Peças corretas: ${correctCount}`; // Atualiza o texto
+    correctCountElement.textContent = `Peças corretas: ${correctCount}`; // Atualiza o texto do contador
 }
 
 // Event listener para o botão de reinício
