@@ -20,6 +20,7 @@ function createPuzzle(imageSrc) {
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
             piece.dataset.position = `${i}-${j}`; // Armazena a posição correta
+            piece.dataset.currentPosition = `${i}-${j}`; // Inicialmente, a posição atual é a correta
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -49,15 +50,15 @@ function createPuzzle(imageSrc) {
 function swapPieces(piece1, piece2) {
     const tempBackground = piece1.style.backgroundImage;
     const tempPosition = piece1.style.backgroundPosition;
-    const tempDataPosition = piece1.dataset.position;
+    const tempDataPosition = piece1.dataset.currentPosition;
 
     piece1.style.backgroundImage = piece2.style.backgroundImage;
     piece1.style.backgroundPosition = piece2.style.backgroundPosition;
-    piece1.dataset.position = piece2.dataset.position;
+    piece1.dataset.currentPosition = piece2.dataset.currentPosition;
 
     piece2.style.backgroundImage = tempBackground;
     piece2.style.backgroundPosition = tempPosition;
-    piece2.dataset.position = tempDataPosition;
+    piece2.dataset.currentPosition = tempDataPosition;
 }
 
 // Função para verificar se o quebra-cabeça está resolvido
@@ -66,12 +67,10 @@ function checkIfSolved() {
     let isSolved = true;
 
     pieces.forEach(piece => {
-        const currentBackgroundPosition = piece.style.backgroundPosition;
+        const currentPosition = piece.dataset.currentPosition;
         const correctPosition = piece.dataset.position;
-        const [i, j] = correctPosition.split('-').map(Number);
 
-        // Verifica se a posição atual do fundo é igual à posição correta
-        if (currentBackgroundPosition !== `-${j * 75}px -${i * 100}px`) {
+        if (currentPosition !== correctPosition) {
             isSolved = false;
         }
     });
