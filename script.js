@@ -1,6 +1,7 @@
-const images = ['imagem1.jpg', 'imagem2.jpg', 'imagem3.jpg', 'imagem4.jpg', 'imagem5.jpg'];
+const images = ['images/imagem1.jpg', 'images/imagem2.jpg', 'images/imagem3.jpg', 'images/imagem4.jpg', 'images/imagem5.jpg'];
 const puzzleContainer = document.getElementById('puzzle-container');
 
+// Função para criar as peças do quebra-cabeça
 function createPuzzle(imageSrc) {
     const pieces = [];
     const size = 4; // 4x4 grid
@@ -21,9 +22,10 @@ function createPuzzle(imageSrc) {
     pieces.forEach(piece => puzzleContainer.appendChild(piece));
 }
 
+// Event listener para o botão de reinício
 document.getElementById('reset').addEventListener('click', () => {
     puzzleContainer.innerHTML = '';
-    createPuzzle(images[0]); // Altere para selecionar outra imagem
+    createPuzzle(images[0]); // Altere para selecionar outra imagem, se desejado
 });
 
 // Cria o quebra-cabeça inicial
