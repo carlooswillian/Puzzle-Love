@@ -1,4 +1,5 @@
 const images = ['images/imagem1.jpg', 'images/imagem2.jpg', 'images/imagem3.jpg', 'images/imagem4.jpg', 'images/imagem5.jpg'];
+let currentImageIndex = 0; // Índice da imagem atual
 const puzzleContainer = document.getElementById('puzzle-container');
 
 let selectedPiece = null; // A peça atualmente selecionada
@@ -25,6 +26,15 @@ function createPuzzle(imageSrc) {
                     swapPieces(selectedPiece, piece);
                     selectedPiece.style.border = ''; // Remove o destaque
                     selectedPiece = null; // Reseta a seleção
+
+                    // Verifica se o quebra-cabeça foi completado
+                    if (isPuzzleComplete()) {
+                        setTimeout(() => {
+                            alert("Você completou a imagem! Avançando para a próxima.");
+                            currentImageIndex = (currentImageIndex + 1) % images.length; // Avança para a próxima imagem
+                            resetPuzzle(); // Reinicia o quebra-cabeça com a próxima imagem
+                        }, 500); // Delay para permitir que o usuário veja a última troca
+                    }
                 }
             });
 
@@ -50,11 +60,31 @@ function swapPieces(piece1, piece2) {
     piece2.style.backgroundPosition = tempPosition;
 }
 
+// Função para verificar se o quebra-cabeça foi completado
+function isPuzzleComplete() {
+    const pieces = document.querySelectorAll('.piece');
+    for (let i = 0; i < pieces.length; i++) {
+        const piece = pieces[i];
+        const row = Math.floor(i / 4);
+        const col = i % 4;
+        const expectedPosition = `-${col * 75}px -${row * 100}px`;
+        if (piece.style.backgroundPosition !== expectedPosition) {
+            return false; // Se alguma peça não está na posição correta, o quebra-cabeça não está completo
+        }
+    }
+    return true; // Todas as peças estão nas posições corretas
+}
+
+// Função para reiniciar o quebra-cabeça
+function resetPuzzle() {
+    puzzleContainer.innerHTML = '';
+    createPuzzle(images[currentImageIndex]); // Carrega a próxima imagem
+}
+
 // Event listener para o botão de reinício
 document.getElementById('reset').addEventListener('click', () => {
-    puzzleContainer.innerHTML = '';
-    createPuzzle(images[0]); // Altere para selecionar outra imagem, se desejado
+    resetPuzzle(); // Reinicia o quebra-cabeça
 });
 
 // Cria o quebra-cabeça inicial
-createPuzzle(images[0]);
+createPuzzle(images[currentImageIndex]);
