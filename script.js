@@ -1,7 +1,14 @@
-const images = ['images/imagem1.jpg', 'images/imagem2.jpg', 'images/imagem3.jpg', 'images/imagem4.jpg', 'images/imagem5.jpg'];
+const images = [
+    'images/imagem1.jpg',
+    'images/imagem2.jpg',
+    'images/imagem3.jpg',
+    'images/imagem4.jpg',
+    'images/imagem5.jpg'
+];
 const puzzleContainer = document.getElementById('puzzle-container');
 const correctCountElement = document.getElementById('correct-count');
 
+let currentImageIndex = 0; // Para rastrear a imagem atual
 let selectedPiece = null;
 
 function createPuzzle(imageSrc) {
@@ -15,7 +22,7 @@ function createPuzzle(imageSrc) {
             const piece = document.createElement('div');
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
-            piece.style.backgroundPosition = `-${j * 60}px -${i * 80}px`; // Ajuste de acordo com a nova largura e altura
+            piece.style.backgroundPosition = `-${j * 60}px -${i * 80}px`;
             piece.dataset.index = i * cols + j; // Define o índice correto baseado na posição
 
             // Adiciona evento de clique
@@ -72,6 +79,10 @@ function updateCorrectCount() {
     // Verifica se todas as peças estão corretas
     if (correctCount === 25) {
         document.getElementById('next').style.display = 'block'; // Exibe o botão
+        // Se for a última imagem, não mostra "Próxima foto"
+        if (currentImageIndex === images.length - 1) {
+            document.getElementById('next').innerHTML = '<span style="display: block;">Parabéns ♡</span>'; // Apenas Parabéns
+        }
     } else {
         document.getElementById('next').style.display = 'none'; // Esconde o botão
     }
@@ -79,14 +90,20 @@ function updateCorrectCount() {
 
 // Event listener para o botão de próxima foto
 document.getElementById('next').addEventListener('click', () => {
-    // Aqui você pode adicionar a lógica para carregar a próxima imagem
-    alert("Aqui você pode implementar a lógica para carregar o próximo quebra-cabeça!");
+    currentImageIndex++; // Incrementa o índice da imagem
+    if (currentImageIndex < images.length) {
+        createPuzzle(images[currentImageIndex]); // Carrega a próxima imagem
+    } else {
+        alert("Você completou todos os quebra-cabeças!"); // Mensagem ao completar todas as imagens
+        // Poderia adicionar lógica para reiniciar ou encerrar o jogo aqui
+    }
 });
 
 // Event listener para o botão de reinício
 document.getElementById('reset').addEventListener('click', () => {
-    createPuzzle(images[0]); // Altere para selecionar outra imagem, se desejado
+    currentImageIndex = 0; // Reinicia o índice da imagem
+    createPuzzle(images[currentImageIndex]); // Inicia com a primeira imagem
 });
 
 // Cria o quebra-cabeça inicial
-createPuzzle(images[0]);
+createPuzzle(images[currentImageIndex]);
