@@ -19,8 +19,8 @@ function createPuzzle(imageSrc) {
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
-            piece.dataset.position = `${i}-${j}`; // Armazena a posição correta
-            piece.dataset.currentPosition = `${i}-${j}`; // Inicialmente, a posição atual é a correta
+            piece.dataset.correctPosition = `${i}-${j}`; // Posição correta
+            piece.dataset.currentPosition = `${i}-${j}`; // Posição inicial (embaralhada depois)
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -48,17 +48,15 @@ function createPuzzle(imageSrc) {
 
 // Função para trocar as peças
 function swapPieces(piece1, piece2) {
-    const tempBackground = piece1.style.backgroundImage;
-    const tempPosition = piece1.style.backgroundPosition;
-    const tempDataPosition = piece1.dataset.currentPosition;
+    const tempPosition = piece1.dataset.currentPosition;
 
-    piece1.style.backgroundImage = piece2.style.backgroundImage;
-    piece1.style.backgroundPosition = piece2.style.backgroundPosition;
     piece1.dataset.currentPosition = piece2.dataset.currentPosition;
+    piece2.dataset.currentPosition = tempPosition;
 
-    piece2.style.backgroundImage = tempBackground;
-    piece2.style.backgroundPosition = tempPosition;
-    piece2.dataset.currentPosition = tempDataPosition;
+    // Troca as imagens das peças
+    const tempBackground = piece1.style.backgroundPosition;
+    piece1.style.backgroundPosition = piece2.style.backgroundPosition;
+    piece2.style.backgroundPosition = tempBackground;
 }
 
 // Função para verificar se o quebra-cabeça está resolvido
@@ -68,7 +66,7 @@ function checkIfSolved() {
 
     pieces.forEach(piece => {
         const currentPosition = piece.dataset.currentPosition;
-        const correctPosition = piece.dataset.position;
+        const correctPosition = piece.dataset.correctPosition;
 
         if (currentPosition !== correctPosition) {
             isSolved = false;
