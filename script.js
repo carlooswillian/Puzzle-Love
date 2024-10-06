@@ -68,7 +68,20 @@ function updateCorrectCount() {
     });
 
     correctCountElement.textContent = `Peças corretas: ${correctCount}`; // Atualiza o texto
+
+    // Verifica se todas as peças estão corretas
+    if (correctCount === 25) {
+        document.getElementById('next').style.display = 'block'; // Exibe o botão
+    } else {
+        document.getElementById('next').style.display = 'none'; // Esconde o botão
+    }
 }
+
+// Event listener para o botão de próxima foto
+document.getElementById('next').addEventListener('click', () => {
+    // Aqui você pode adicionar a lógica para carregar a próxima imagem
+    alert("Aqui você pode implementar a lógica para carregar o próximo quebra-cabeça!");
+});
 
 // Event listener para o botão de reinício
 document.getElementById('reset').addEventListener('click', () => {
