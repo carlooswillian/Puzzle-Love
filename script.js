@@ -1,7 +1,7 @@
 const images = ['images/imagem1.jpg', 'images/imagem2.jpg', 'images/imagem3.jpg', 'images/imagem4.jpg', 'images/imagem5.jpg'];
 const puzzleContainer = document.getElementById('puzzle-container');
 
-let draggedPiece = null;
+let firstPiece = null; // A primeira peça selecionada
 
 // Função para criar as peças do quebra-cabeça
 function createPuzzle(imageSrc) {
@@ -12,32 +12,28 @@ function createPuzzle(imageSrc) {
         for (let j = 0; j < size; j++) {
             const piece = document.createElement('div');
             piece.className = 'piece';
-            piece.draggable = true; // Permite que a peça seja arrastável
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 100}px -${i * 100}px`;
-            
-            // Adiciona eventos de arrastar
-            piece.addEventListener('dragstart', () => {
-                draggedPiece = piece; // Armazena a peça que está sendo arrastada
-            });
 
-            piece.addEventListener('dragover', (e) => {
-                e.preventDefault(); // Permite que a peça seja solta em outra
-            });
-
-            piece.addEventListener('drop', () => {
-                if (draggedPiece) {
+            // Adiciona evento de toque
+            piece.addEventListener('click', () => {
+                if (!firstPiece) {
+                    firstPiece = piece; // Seleciona a primeira peça
+                    piece.style.border = '2px solid red'; // Destaque a peça selecionada
+                } else {
                     // Troca as peças
                     const tempBackground = piece.style.backgroundImage;
                     const tempPosition = piece.style.backgroundPosition;
 
-                    piece.style.backgroundImage = draggedPiece.style.backgroundImage;
-                    piece.style.backgroundPosition = draggedPiece.style.backgroundPosition;
+                    piece.style.backgroundImage = firstPiece.style.backgroundImage;
+                    piece.style.backgroundPosition = firstPiece.style.backgroundPosition;
 
-                    draggedPiece.style.backgroundImage = tempBackground;
-                    draggedPiece.style.backgroundPosition = tempPosition;
+                    firstPiece.style.backgroundImage = tempBackground;
+                    firstPiece.style.backgroundPosition = tempPosition;
 
-                    draggedPiece = null; // Limpa a peça arrastada
+                    // Limpa a seleção
+                    firstPiece.style.border = '';
+                    firstPiece = null; // Reseta a seleção
                 }
             });
 
