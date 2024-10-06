@@ -1,7 +1,7 @@
 const images = ['images/imagem1.jpg', 'images/imagem2.jpg', 'images/imagem3.jpg', 'images/imagem4.jpg', 'images/imagem5.jpg'];
 const puzzleContainer = document.getElementById('puzzle-container');
 
-let firstPiece = null; // A primeira peça selecionada
+let selectedPieces = []; // Array para armazenar as peças selecionadas
 
 // Função para criar as peças do quebra-cabeça
 function createPuzzle(imageSrc) {
@@ -15,25 +15,17 @@ function createPuzzle(imageSrc) {
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 100}px -${i * 100}px`;
 
-            // Adiciona evento de toque
+            // Adiciona evento de clique
             piece.addEventListener('click', () => {
-                if (!firstPiece) {
-                    firstPiece = piece; // Seleciona a primeira peça
+                if (selectedPieces.length < 2) {
                     piece.style.border = '2px solid red'; // Destaque a peça selecionada
-                } else {
-                    // Troca as peças
-                    const tempBackground = piece.style.backgroundImage;
-                    const tempPosition = piece.style.backgroundPosition;
+                    selectedPieces.push(piece); // Adiciona a peça ao array
 
-                    piece.style.backgroundImage = firstPiece.style.backgroundImage;
-                    piece.style.backgroundPosition = firstPiece.style.backgroundPosition;
-
-                    firstPiece.style.backgroundImage = tempBackground;
-                    firstPiece.style.backgroundPosition = tempPosition;
-
-                    // Limpa a seleção
-                    firstPiece.style.border = '';
-                    firstPiece = null; // Reseta a seleção
+                    if (selectedPieces.length === 2) {
+                        swapPieces(selectedPieces[0], selectedPieces[1]);
+                        selectedPieces.forEach(p => p.style.border = ''); // Remove o destaque
+                        selectedPieces = []; // Limpa a seleção
+                    }
                 }
             });
 
@@ -45,6 +37,18 @@ function createPuzzle(imageSrc) {
     pieces.sort(() => Math.random() - 0.5);
 
     pieces.forEach(piece => puzzleContainer.appendChild(piece));
+}
+
+// Função para trocar as peças
+function swapPieces(piece1, piece2) {
+    const tempBackground = piece1.style.backgroundImage;
+    const tempPosition = piece1.style.backgroundPosition;
+
+    piece1.style.backgroundImage = piece2.style.backgroundImage;
+    piece1.style.backgroundPosition = piece2.style.backgroundPosition;
+
+    piece2.style.backgroundImage = tempBackground;
+    piece2.style.backgroundPosition = tempPosition;
 }
 
 // Event listener para o botão de reinício
