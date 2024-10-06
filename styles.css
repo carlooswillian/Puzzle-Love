@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     display: flex;
+    flex-direction: column;
     height: 100vh;
     overflow: hidden;
 }
@@ -9,23 +10,27 @@ body {
 header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: #f4f4f4;
     padding: 10px;
 }
 
 h1 {
-    margin: 0 auto;
+    margin: 0;
     text-align: center;
+    font-size: 4vw; /* Tamanho responsivo */
 }
 
 .sidebar {
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     width: 200px;
     height: 100%;
     background-color: #ddd;
     padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .puzzle-container {
@@ -34,10 +39,13 @@ h1 {
     align-items: center;
     width: calc(100% - 200px);
     margin-left: 200px;
+    box-sizing: border-box;
 }
 
 #puzzle-image {
-    width: 75%; /* 3:4 aspect ratio */
+    width: 75%; /* Mantém a proporção 3:4 */
+    max-width: 600px; /* Limita o tamanho em telas grandes */
+    aspect-ratio: 3/4; /* Garante que a proporção seja 3:4 */
     object-fit: cover;
 }
 
@@ -46,6 +54,64 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 20px;
+    width: 100%;
 }
 
-/* Estilos para as peças serão aplicados dinamicamente */
+.puzzle-piece {
+    background-color: rgba(0, 0, 255, 0.5);
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* Responsividade para dispositivos menores */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 150px; /* Ajusta o tamanho da aba lateral em telas menores */
+        padding: 10px;
+    }
+
+    .puzzle-container {
+        margin-left: 150px;
+        width: calc(100% - 150px);
+    }
+
+    #puzzle-image {
+        width: 100%;
+        max-width: none; /* Remover limite em telas pequenas */
+    }
+
+    .puzzle-piece {
+        width: 60px; /* Tamanho ajustado das peças */
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .sidebar {
+        width: 100px;
+        padding: 5px;
+    }
+
+    .puzzle-container {
+        margin-left: 100px;
+        width: calc(100% - 100px);
+    }
+
+    #puzzle-image {
+        width: 90%; /* Ajusta a imagem em telas muito pequenas */
+    }
+
+    .puzzle-piece {
+        width: 40px; /* Tamanho ainda menor das peças em celulares */
+        height: 40px;
+    }
+}
