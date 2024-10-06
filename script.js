@@ -1,7 +1,7 @@
 const images = ['images/imagem1.jpg', 'images/imagem2.jpg', 'images/imagem3.jpg', 'images/imagem4.jpg', 'images/imagem5.jpg'];
 const puzzleContainer = document.getElementById('puzzle-container');
 
-let selectedPieces = []; // Array para armazenar as peças selecionadas
+let selectedPiece = null; // A peça atualmente selecionada
 
 // Função para criar as peças do quebra-cabeça
 function createPuzzle(imageSrc) {
@@ -17,15 +17,14 @@ function createPuzzle(imageSrc) {
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
-                if (selectedPieces.length < 2) {
+                if (!selectedPiece) {
+                    selectedPiece = piece; // Seleciona a peça
                     piece.style.border = '2px solid red'; // Destaque a peça selecionada
-                    selectedPieces.push(piece); // Adiciona a peça ao array
-
-                    if (selectedPieces.length === 2) {
-                        swapPieces(selectedPieces[0], selectedPieces[1]);
-                        selectedPieces.forEach(p => p.style.border = ''); // Remove o destaque
-                        selectedPieces = []; // Limpa a seleção
-                    }
+                } else {
+                    // Troca as peças
+                    swapPieces(selectedPiece, piece);
+                    selectedPiece.style.border = ''; // Remove o destaque
+                    selectedPiece = null; // Reseta a seleção
                 }
             });
 
