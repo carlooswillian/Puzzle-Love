@@ -1,6 +1,10 @@
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('open');
+    if (sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open'); // Fecha a aba se estiver aberta
+    } else {
+        sidebar.classList.add('open'); // Abre a aba se estiver fechada
+    }
 }
 
 function loadImage(image) {
