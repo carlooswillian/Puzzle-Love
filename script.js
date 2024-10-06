@@ -6,7 +6,7 @@ let selectedPiece = null;
 
 function createPuzzle(imageSrc) {
     const pieces = [];
-    const size = 4; // 4x4 grid
+    const size = 5; // 5x5 grid
     puzzleContainer.innerHTML = '';
 
     for (let i = 0; i < size; i++) {
@@ -14,7 +14,7 @@ function createPuzzle(imageSrc) {
             const piece = document.createElement('div');
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
-            piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
+            piece.style.backgroundPosition = `-${j * 60}px -${i * 80}px`; // Ajuste conforme o tamanho da peça
             piece.dataset.index = i * size + j; // Define o índice correto baseado na posição
 
             // Adiciona evento de clique
@@ -61,9 +61,8 @@ function updateCorrectCount() {
     let correctCount = 0;
 
     document.querySelectorAll('.piece').forEach(piece => {
-        // Compara o índice atual da peça com o índice correto
         if (parseInt(piece.dataset.index) === Array.from(puzzleContainer.children).indexOf(piece)) {
-            correctCount++; // Incrementa se a peça estiver no lugar correto
+            correctCount++;
         }
     });
 
