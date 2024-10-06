@@ -18,7 +18,7 @@ function createPuzzle(imageSrc) {
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
             piece.dataset.correctIndex = i * size + j; // Atribui o índice correto da peça
-            piece.dataset.currentIndex = i * size + j; // Atribui o índice atual da peça inicialmente
+            piece.dataset.currentIndex = i * size + j; // Inicialmente, o índice atual é igual ao correto
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -39,10 +39,11 @@ function createPuzzle(imageSrc) {
     }
 
     // Embaralha as peças
-    shuffleArray(pieces); // Embaralha as peças usando a função shuffleArray
+    shuffleArray(pieces);
 
+    // Define as posições atuais após o embaralhamento
     pieces.forEach((piece, index) => {
-        piece.dataset.currentIndex = index; // Define a posição atual da peça
+        piece.dataset.currentIndex = index; // Atualiza o índice atual
         puzzleContainer.appendChild(piece);
     });
 
