@@ -26,3 +26,9 @@ body {
     background-size: 300px 400px; /* Ajuste de tamanho para o fundo */
     background-repeat: no-repeat; /* Garante que a imagem não se repita */
 }
+
+#correct-count {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
