@@ -18,21 +18,6 @@ function createPuzzle(imageSrc) {
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
             piece.dataset.correctIndex = i * size + j; // Atribui o índice correto da peça
-            piece.dataset.currentIndex = i * size + j; // Inicialmente, o índice atual é igual ao correto
-
-            // Adiciona evento de clique
-            piece.addEventListener('click', () => {
-                if (!selectedPiece) {
-                    selectedPiece = piece; // Seleciona a peça
-                    piece.style.border = '2px solid red'; // Destaque a peça selecionada
-                } else {
-                    // Troca as peças
-                    swapPieces(selectedPiece, piece);
-                    selectedPiece.style.border = ''; // Remove o destaque
-                    selectedPiece = null; // Reseta a seleção
-                    updateCorrectCount(); // Atualiza o contador após cada troca
-                }
-            });
 
             pieces.push(piece);
         }
