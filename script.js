@@ -1,79 +1,23 @@
-let currentImageIndex = 0;
-const images = ['imagem1.jpg', 'imagem2.jpg', 'imagem3.jpg', 'imagem4.jpg', 'imagem5.jpg'];
-const totalImages = images.length;
-
-const puzzle = document.getElementById('puzzle');
-const piecesContainer = document.getElementById('pieces');
-const finalScreen = document.getElementById('final-screen');
-const restartBtn = document.getElementById('restart-btn');
-
-// Função para criar o quebra-cabeça a partir da imagem
-function loadPuzzle() {
-    puzzle.innerHTML = '';
-    piecesContainer.innerHTML = '';
-
-    const imgSrc = images[currentImageIndex];
-
-    // Criar peças do quebra-cabeça
-    let pieceIndex = 0;
-    for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < 5; col++) {
-            const piece = document.createElement('div');
-            piece.classList.add('piece');
-            piece.style.backgroundImage = `url(${imgSrc})`;
-            piece.style.backgroundPosition = `-${col * 100}px -${row * 100}px`;
-
-            piece.setAttribute('draggable', true);
-            piece.addEventListener('dragstart', dragStart);
-
-            piecesContainer.appendChild(piece);
-            pieceIndex++;
-        }
-    }
-
-    // Embaralha as peças
-    shufflePieces();
+function loadImage(image) {
+    document.getElementById('puzzle-image').src = image;
+    generatePuzzlePieces();
 }
 
-function shufflePieces() {
-    const piecesArray = Array.from(piecesContainer.children);
-    piecesArray.forEach(piece => {
-        piecesContainer.appendChild(piece);
-    });
-}
+function generatePuzzlePieces() {
+    const puzzlePiecesContainer = document.getElementById('puzzle-pieces');
+    puzzlePiecesContainer.innerHTML = ''; // Limpa as peças anteriores
 
-// Função de arrastar e soltar (drag and drop)
-let draggedPiece = null;
-
-function dragStart(e) {
-    draggedPiece = e.target;
-    setTimeout(() => e.target.classList.add('hidden'), 0);
-}
-
-piecesContainer.addEventListener('dragover', e => {
-    e.preventDefault();
-});
-
-piecesContainer.addEventListener('drop', e => {
-    e.preventDefault();
-    if (draggedPiece) {
-        draggedPiece.classList.remove('hidden');
-        piecesContainer.appendChild(draggedPiece);
-        draggedPiece = null;
-    }
-});
-
-// Finaliza o jogo quando todas as imagens forem completadas
-function checkCompletion() {
-    if (currentImageIndex >= totalImages) {
-        finalScreen.classList.remove('hidden');
+    // Exemplo: gerar peças aleatórias (ajuste conforme necessário)
+    for (let i = 0; i < 20; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'puzzle-piece';
+        piece.style.width = '100px'; // Ajustar conforme os tamanhos e formatos
+        piece.style.height = '100px';
+        piece.style.backgroundColor = 'rgba(0, 0, 255, 0.5)';
+        piece.innerText = i + 1;
+        puzzlePiecesContainer.appendChild(piece);
     }
 }
 
-restartBtn.addEventListener('click', () => {
-    currentImageIndex = 0;
-    finalScreen.classList.add('hidden');
-    loadPuzzle();
-});
-
-loadPuzzle();
+// Chame a função para gerar as peças na página inicial
+generatePuzzlePieces();
