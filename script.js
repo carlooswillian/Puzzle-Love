@@ -17,8 +17,8 @@ function createPuzzle(imageSrc) {
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
 
-            const correctIndex = i * size + j; // Índice correto da peça
-            piece.dataset.correctIndex = correctIndex; // Armazena o índice correto
+            const correctIndex = i * size + j; // Índice correto da peça, com base em sua posição na grade
+            piece.dataset.correctIndex = correctIndex; // Armazena o índice correto da peça
             piece.dataset.currentIndex = correctIndex; // Inicialmente, o índice atual é igual ao correto
 
             // Adiciona evento de clique
@@ -72,7 +72,8 @@ function updateCorrectCount() {
     let correctCount = 0;
 
     document.querySelectorAll('.piece').forEach(piece => {
-        if (parseInt(piece.dataset.correctIndex) === parseInt(piece.dataset.currentIndex)) {
+        // Verifica se o índice atual da peça é igual ao seu índice correto
+        if (parseInt(piece.dataset.currentIndex) === parseInt(piece.dataset.correctIndex)) {
             correctCount++; // Incrementa se a peça estiver no lugar correto
         }
     });
