@@ -17,9 +17,9 @@ body {
 }
 
 .piece {
-    width: 75px; /* Ajuste para manter a proporção 3:4 */
-    height: 100px; /* Ajuste para manter a proporção 3:4 */
-    background-size: 300px 400px; /* Ajuste para 4x3 */
+    width: 75px; /* Tamanho das peças */
+    height: 100px; /* Tamanho das peças */
+    background-size: 300px 400px; /* Tamanho da imagem original */
     cursor: pointer;
     transition: border 0.2s;
 }
