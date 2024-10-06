@@ -3,11 +3,12 @@ const puzzleContainer = document.getElementById('puzzle-container');
 const correctCountElement = document.getElementById('correct-count');
 
 let selectedPiece = null; // A peça atualmente selecionada
+const size = 4; // Tamanho do grid (4x4)
 
 // Função para criar as peças do quebra-cabeça
 function createPuzzle(imageSrc) {
     const pieces = [];
-    const size = 4; // 4x4 grid
+
     puzzleContainer.innerHTML = ''; // Limpa o contêiner
 
     // Criando as peças e atribuindo posição correta
@@ -17,8 +18,7 @@ function createPuzzle(imageSrc) {
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
-            piece.dataset.correctIndex = i * size + j; // Atribui o índice correto da peça
-            piece.dataset.currentIndex = i * size + j; // Atribui o índice atual da peça inicialmente
+            piece.dataset.correctIndex = i * size + j; // Atribui o índice correto da peça (0 a 15)
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -39,9 +39,15 @@ function createPuzzle(imageSrc) {
     }
 
     // Embaralha as peças
-    pieces.sort(() => Math.random() - 0.5);
+    for (let i = pieces.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pieces[i], pieces[j]] = [pieces[j], pieces[i]]; // Troca as peças
+        pieces[i].dataset.currentIndex = i; // Atualiza o índice atual após embaralhar
+        pieces[j].dataset.currentIndex = j;
+    }
+
     pieces.forEach((piece, index) => {
-        piece.dataset.currentIndex = index; // Atualiza o índice atual após embaralhar
+        piece.dataset.currentIndex = index; // Define a posição atual da peça
         puzzleContainer.appendChild(piece);
     });
 
@@ -50,9 +56,8 @@ function createPuzzle(imageSrc) {
 
 // Função para trocar as peças
 function swapPieces(piece1, piece2) {
-    const tempIndex = piece1.dataset.currentIndex;
-
     // Troca os índices atuais
+    const tempIndex = piece1.dataset.currentIndex;
     piece1.dataset.currentIndex = piece2.dataset.currentIndex;
     piece2.dataset.currentIndex = tempIndex;
 
@@ -70,14 +75,9 @@ function swapPieces(piece1, piece2) {
 // Função para contar quantas peças estão no lugar correto
 function updateCorrectCount() {
     let correctCount = 0;
-    const pieces = document.querySelectorAll('.piece');
 
-    pieces.forEach(piece => {
-        const correctIndex = piece.dataset.correctIndex;
-        const currentIndex = piece.dataset.currentIndex;
-
-        // Verifica se a peça está na posição correta
-        if (correctIndex == currentIndex) {
+    document.querySelectorAll('.piece').forEach(piece => {
+        if (piece.dataset.correctIndex === piece.dataset.currentIndex) {
             correctCount++; // Incrementa se a peça estiver no lugar correto
         }
     });
