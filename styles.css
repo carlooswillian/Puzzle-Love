@@ -1,30 +1,34 @@
 body {
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #e0f7fa;
+    background-color: #f0f0f0; /* Cor de fundo suave */
+}
+
+#title {
+    font-size: 24px;
+    margin: 20px 0;
 }
 
 #puzzle-container {
-    display: grid;
-    grid-template-columns: repeat(4, 75px); /* 4 peças de 75px cada */
-    grid-gap: 5px;
-    margin: 20px;
-    width: 300px; /* Largura total para 4 peças */
-    height: 400px; /* Altura total para 4 peças na proporção 3:4 */
+    display: grid; /* Usa grid para layout */
+    grid-template-columns: repeat(5, 60px); /* 5 colunas de 60px */
+    grid-template-rows: repeat(5, 80px); /* 5 linhas de 80px */
+    gap: 2px; /* Espaçamento entre as peças */
+    margin-bottom: 20px;
 }
 
 .piece {
-    width: 75px; /* Largura da peça */
-    height: 100px; /* Altura da peça (proporção 3:4) */
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 60px; /* Largura de cada peça */
+    height: 80px; /* Altura de cada peça */
+    background-size: 300px 400px; /* Ajuste para o tamanho total da imagem */
     cursor: pointer;
-    background-size: 300px 400px; /* Ajuste de tamanho para o fundo */
-    background-repeat: no-repeat; /* Garante que a imagem não se repita */
+    transition: transform 0.2s; /* Efeito suave ao clicar */
+}
+
+.piece:hover {
+    transform: scale(1.05); /* Aumenta um pouco ao passar o mouse */
 }
 
 #correct-count {
@@ -32,3 +36,17 @@ body {
     margin-top: 10px;
 }
 
+#reset {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #007bff; /* Azul para o botão */
+    color: white; /* Cor do texto */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s; /* Efeito de transição */
+}
+
+#reset:hover {
+    background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
+}
