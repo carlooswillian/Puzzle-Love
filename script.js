@@ -16,8 +16,10 @@ function createPuzzle(imageSrc) {
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
-            piece.dataset.correctIndex = `${i}-${j}`; // Índice correto da peça (linha-coluna)
-            piece.dataset.currentIndex = `${i}-${j}`; // Índice atual da peça (linha-coluna)
+
+            const correctIndex = i * size + j; // Calcula o índice correto da peça
+            piece.dataset.correctIndex = correctIndex; // Índice correto da peça
+            piece.dataset.currentIndex = correctIndex; // Índice atual da peça
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -40,9 +42,7 @@ function createPuzzle(imageSrc) {
     // Embaralha as peças
     pieces.sort(() => Math.random() - 0.5);
     pieces.forEach((piece, index) => {
-        const row = Math.floor(index / size);
-        const col = index % size;
-        piece.dataset.currentIndex = `${row}-${col}`; // Atualiza o índice atual após embaralhar
+        piece.dataset.currentIndex = index; // Atualiza o índice atual após embaralhar
         puzzleContainer.appendChild(piece);
     });
 
@@ -69,7 +69,7 @@ function updateCorrectCount() {
     let correctCount = 0;
 
     document.querySelectorAll('.piece').forEach(piece => {
-        if (piece.dataset.correctIndex === piece.dataset.currentIndex) {
+        if (parseInt(piece.dataset.correctIndex) === parseInt(piece.dataset.currentIndex)) {
             correctCount++; // Incrementa se a peça estiver no lugar correto
         }
     });
