@@ -7,19 +7,20 @@ body {
 
 #puzzle-container {
     display: grid;
-    grid-template-columns: repeat(4, 100px); /* 4 peças de 100px cada */
+    grid-template-columns: repeat(4, 75px); /* 4 peças de 75px cada */
     grid-gap: 5px;
     margin: 20px;
 }
 
 .piece {
-    width: 100px;
-    height: 100px;
+    width: 75px; /* Largura da peça */
+    height: 100px; /* Altura da peça (proporção 3:4) */
     background-color: #ffffff;
     border: 1px solid #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background-size: 400px 400px; /* Ajuste de tamanho para o fundo */
+    background-size: 300px 400px; /* Ajuste de tamanho para o fundo */
+    background-repeat: no-repeat; /* Garante que a imagem não se repita */
 }
