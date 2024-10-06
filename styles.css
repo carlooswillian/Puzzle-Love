@@ -7,7 +7,7 @@ body {
 
 #puzzle-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 100px); /* 4 peças de 100px cada */
     grid-gap: 5px;
     margin: 20px;
 }
@@ -21,8 +21,5 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-}
-
-h1 {
-    text-align: center;
+    background-size: 400px 400px; /* Ajuste de tamanho para o fundo */
 }
