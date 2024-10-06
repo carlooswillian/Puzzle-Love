@@ -61,8 +61,8 @@ button:hover {
     bottom: 40px; /* Distância da parte inferior */
     left: 50%; /* Centraliza horizontalmente */
     transform: translateX(-50%); /* Ajusta para centralizar */
-    padding: 20px 40px;
-    font-size: 22px;
+    padding: 18px 36px;
+    font-size: 18px;
     background-color: #000000; /* Cor do botão */
     color: white;
     border: none;
