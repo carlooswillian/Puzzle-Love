@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quebra-Cabeça Interativo</title>
+    <title>Puzzle Love</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="puzzle-container">
-        <h1>Monte o Quebra-Cabeça!</h1>
-        <div id="puzzle"></div>
-        <div id="pieces"></div>
-    </div>
+    <header>
+        <h1>Puzzle Love</h1>
+        <div class="sidebar">
+            <ul>
+                <li><button onclick="loadImage('imagem1.jpg')">Imagem 1</button></li>
+                <li><button onclick="loadImage('imagem2.jpg')">Imagem 2</button></li>
+                <!-- Adicione mais botões para as imagens -->
+            </ul>
+        </div>
+    </header>
 
-    <div id="final-screen" class="hidden">
-        <h1>Te amo pra sempre, aguarde o próximo jogo!</h1>
-        <button id="restart-btn">Recomeçar</button>
-    </div>
+    <main>
+        <div class="puzzle-container">
+            <img id="puzzle-image" src="imagem1.jpg" alt="Imagem 1">
+            <div id="puzzle-pieces">
+                <!-- Peças do quebra-cabeça geradas aqui -->
+            </div>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
