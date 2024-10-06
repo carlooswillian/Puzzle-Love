@@ -34,8 +34,7 @@ h1 {
 }
 
 #correct-count {
-    font-size: 18px;
-    margin-bottom: 20px;
+    display: none; /* Oculta o contador */
 }
 
 button {
@@ -51,6 +50,10 @@ button {
 
 button:hover {
     background-color: #0056b3; /* Cor do botão ao passar o mouse */
+}
+
+#reset {
+    display: none; /* Oculta o botão de recomeçar */
 }
 
 #next {
