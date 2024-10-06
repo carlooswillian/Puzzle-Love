@@ -3,7 +3,6 @@ const puzzleContainer = document.getElementById('puzzle-container');
 const correctCountElement = document.getElementById('correct-count'); // Seleciona o elemento do contador
 
 let selectedPiece = null; // A peça atualmente selecionada
-let piecesOrder = []; // Armazena a ordem correta das peças
 
 // Função para criar as peças do quebra-cabeça
 function createPuzzle(imageSrc) {
@@ -17,8 +16,8 @@ function createPuzzle(imageSrc) {
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
             piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
-            piece.dataset.correctIndex = pieces.length; // Índice correto da peça
-            piece.dataset.currentIndex = pieces.length; // Índice atual da peça
+            piece.dataset.correctIndex = `${i}-${j}`; // Índice correto da peça (linha-coluna)
+            piece.dataset.currentIndex = `${i}-${j}`; // Índice atual da peça (linha-coluna)
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -41,7 +40,9 @@ function createPuzzle(imageSrc) {
     // Embaralha as peças
     pieces.sort(() => Math.random() - 0.5);
     pieces.forEach((piece, index) => {
-        piece.dataset.currentIndex = index; // Atualiza o índice atual após embaralhar
+        const row = Math.floor(index / size);
+        const col = index % size;
+        piece.dataset.currentIndex = `${row}-${col}`; // Atualiza o índice atual após embaralhar
         puzzleContainer.appendChild(piece);
     });
 
