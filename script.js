@@ -1,21 +1,25 @@
 const images = ['images/imagem1.jpg', 'images/imagem2.jpg', 'images/imagem3.jpg', 'images/imagem4.jpg', 'images/imagem5.jpg'];
-let currentImageIndex = 0; // Índice da imagem atual
+let currentImageIndex = 0;
 const puzzleContainer = document.getElementById('puzzle-container');
-const actionButton = document.getElementById('action-button');
-
+const message = document.getElementById('message');
+const nextButton = document.getElementById('next');
 let selectedPiece = null; // A peça atualmente selecionada
 
 // Função para criar as peças do quebra-cabeça
 function createPuzzle(imageSrc) {
     const pieces = [];
     const size = 4; // 4x4 grid
+    puzzleContainer.innerHTML = ''; // Limpa o contêiner
+    message.style.display = 'none'; // Esconde a mensagem
+    nextButton.style.display = 'none'; // Esconde o botão de próxima imagem
 
     for (let i = 0; i < size; i++) {
         for (let j = 0; j < size; j++) {
             const piece = document.createElement('div');
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
-            piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`; // Ajuste para 75 e 100
+            piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`;
+            piece.dataset.correctPosition = `${i}-${j}`; // Armazena a posição correta
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -27,6 +31,7 @@ function createPuzzle(imageSrc) {
                     swapPieces(selectedPiece, piece);
                     selectedPiece.style.border = ''; // Remove o destaque
                     selectedPiece = null; // Reseta a seleção
+                    checkIfSolved(); // Verifica se o quebra-cabeça foi resolvido
                 }
             });
 
@@ -52,47 +57,37 @@ function swapPieces(piece1, piece2) {
     piece2.style.backgroundPosition = tempPosition;
 }
 
-// Função para verificar se o quebra-cabeça foi completado
-function isPuzzleComplete() {
+// Função para verificar se o quebra-cabeça está resolvido
+function checkIfSolved() {
     const pieces = document.querySelectorAll('.piece');
-    for (let i = 0; i < pieces.length; i++) {
-        const piece = pieces[i];
-        const row = Math.floor(i / 4);
-        const col = i % 4;
-        const expectedPosition = `-${col * 75}px -${row * 100}px`;
-        if (piece.style.backgroundPosition !== expectedPosition) {
-            return false; // Se alguma peça não está na posição correta, o quebra-cabeça não está completo
-        }
-    }
-    return true; // Todas as peças estão nas posições corretas
-}
+    let isSolved = true;
 
-// Função para reiniciar o quebra-cabeça
-function resetPuzzle() {
-    puzzleContainer.innerHTML = ''; // Limpa as peças atuais
-    createPuzzle(images[currentImageIndex]); // Carrega a próxima imagem
-}
+    pieces.forEach(piece => {
+        const backgroundPosition = piece.style.backgroundPosition;
+        const correctPosition = piece.dataset.correctPosition;
+        const [i, j] = correctPosition.split('-').map(Number);
 
-// Função para avançar para a próxima imagem ou reiniciar
-function handleActionButton() {
-    if (isPuzzleComplete()) {
-        if (currentImageIndex < images.length - 1) {
-            currentImageIndex++; // Avança para a próxima imagem
-            actionButton.innerText = 'Recomeçar';
-            resetPuzzle();
-        } else {
-            alert("Você completou todas as imagens! Voltar ao início.");
-            currentImageIndex = 0; // Volta para a primeira imagem
-            actionButton.innerText = 'Recomeçar';
-            resetPuzzle();
+        if (backgroundPosition !== `-${j * 75}px -${i * 100}px`) {
+            isSolved = false;
         }
-    } else {
-        alert("O quebra-cabeça ainda está errado. Continue tentando!");
+    });
+
+    if (isSolved) {
+        message.style.display = 'block'; // Mostra a mensagem de parabéns
+        nextButton.style.display = 'block'; // Mostra o botão para a próxima imagem
     }
 }
 
-// Event listener para o botão de ação
-actionButton.addEventListener('click', handleActionButton);
+// Event listener para o botão de próxima imagem
+nextButton.addEventListener('click', () => {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    createPuzzle(images[currentImageIndex]);
+});
+
+// Event listener para o botão de reinício
+document.getElementById('reset').addEventListener('click', () => {
+    createPuzzle(images[currentImageIndex]); // Reinicia a imagem atual
+});
 
 // Cria o quebra-cabeça inicial
 createPuzzle(images[currentImageIndex]);
