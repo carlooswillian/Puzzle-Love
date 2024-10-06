@@ -13,7 +13,7 @@ function createPuzzle(imageSrc) {
             const piece = document.createElement('div');
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
-            piece.style.backgroundPosition = `-${j * 100}px -${i * 100}px`;
+            piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`; // Ajuste aqui para 75 e 100
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
