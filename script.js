@@ -1,3 +1,8 @@
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+}
+
 function loadImage(image) {
     document.getElementById('puzzle-image').src = image;
     generatePuzzlePieces();
@@ -7,7 +12,7 @@ function generatePuzzlePieces() {
     const puzzlePiecesContainer = document.getElementById('puzzle-pieces');
     puzzlePiecesContainer.innerHTML = ''; // Limpa as peças anteriores
 
-    // Exemplo: gerar peças aleatórias (ajuste conforme necessário)
+    // Exemplo: gerar peças aleatórias
     for (let i = 0; i < 20; i++) {
         const piece = document.createElement('div');
         piece.className = 'puzzle-piece';
@@ -19,5 +24,5 @@ function generatePuzzlePieces() {
     }
 }
 
-// Chame a função para gerar as peças na página inicial
+// Gera peças ao carregar a página
 generatePuzzlePieces();
