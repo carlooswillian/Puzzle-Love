@@ -3,51 +3,52 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f0f0f0; /* Cor de fundo suave */
+    background-color: #f0f0f0;
 }
 
-#title {
-    font-size: 24px;
-    margin: 20px 0;
+h1 {
+    text-align: center;
 }
 
 #puzzle-container {
-    display: grid; /* Usa grid para layout */
-    grid-template-columns: repeat(5, 60px); /* 5 colunas de 60px */
-    grid-template-rows: repeat(5, 80px); /* 5 linhas de 80px */
-    gap: 2px; /* Espaçamento entre as peças */
-    margin-bottom: 20px;
-    width: 310px; /* Largura total do contêiner, ajustada para acomodar as colunas */
+    display: grid;
+    grid-template-columns: repeat(5, 60px); /* 5 colunas */
+    grid-template-rows: repeat(5, 80px); /* 5 linhas */
+    gap: 1px; /* Espaçamento entre as peças */
+    margin: 20px 0;
+    position: relative;
 }
 
 .piece {
-    width: 60px; /* Largura de cada peça */
-    height: 80px; /* Altura de cada peça */
-    background-size: 300px 400px; /* Ajuste para o tamanho total da imagem */
+    width: 60px; /* Largura da peça */
+    height: 80px; /* Altura da peça */
+    background-size: 300px 400px; /* Tamanho total da imagem */
+    display: inline-block;
     cursor: pointer;
-    transition: transform 0.2s; /* Efeito suave ao clicar */
+    border: 1px solid #ccc; /* Apenas para visualização */
+    transition: border 0.2s;
 }
 
 .piece:hover {
-    transform: scale(1.05); /* Aumenta um pouco ao passar o mouse */
+    border: 2px solid #007bff; /* Efeito de hover */
 }
 
 #correct-count {
     font-size: 18px;
-    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
-#reset {
+button {
     padding: 10px 20px;
     font-size: 16px;
+    background-color: #007bff;
+    color: white;
     border: none;
-    background-color: #007bff; /* Azul para o botão */
-    color: white; /* Cor do texto */
-    cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s; /* Efeito de transição */
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-#reset:hover {
-    background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
+button:hover {
+    background-color: #0056b3; /* Cor do botão ao passar o mouse */
 }
