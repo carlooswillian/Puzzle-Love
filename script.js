@@ -70,9 +70,14 @@ function swapPieces(piece1, piece2) {
 // Função para contar quantas peças estão no lugar correto
 function updateCorrectCount() {
     let correctCount = 0;
+    const pieces = document.querySelectorAll('.piece');
 
-    document.querySelectorAll('.piece').forEach(piece => {
-        if (piece.dataset.correctIndex === piece.dataset.currentIndex) {
+    pieces.forEach(piece => {
+        const correctIndex = piece.dataset.correctIndex;
+        const currentIndex = piece.dataset.currentIndex;
+
+        // Verifica se a peça está na posição correta
+        if (correctIndex == currentIndex) {
             correctCount++; // Incrementa se a peça estiver no lugar correto
         }
     });
