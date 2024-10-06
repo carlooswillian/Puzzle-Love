@@ -17,6 +17,7 @@ body {
     grid-template-rows: repeat(5, 80px); /* 5 linhas de 80px */
     gap: 2px; /* Espaçamento entre as peças */
     margin-bottom: 20px;
+    width: 310px; /* Largura total do contêiner, ajustada para acomodar as colunas */
 }
 
 .piece {
