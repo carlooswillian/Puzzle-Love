@@ -14,7 +14,7 @@ function createPuzzle(imageSrc) {
             const piece = document.createElement('div');
             piece.className = 'piece';
             piece.style.backgroundImage = `url(${imageSrc})`;
-            piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`; // Ajuste aqui para 75 e 100
+            piece.style.backgroundPosition = `-${j * 75}px -${i * 100}px`; // Ajuste para 75 e 100
 
             // Adiciona evento de clique
             piece.addEventListener('click', () => {
@@ -29,6 +29,7 @@ function createPuzzle(imageSrc) {
 
                     // Verifica se o quebra-cabeça foi completado
                     if (isPuzzleComplete()) {
+                        console.log("Quebra-cabeça completo!"); // Debugging
                         setTimeout(() => {
                             alert("Você completou a imagem! Avançando para a próxima.");
                             currentImageIndex = (currentImageIndex + 1) % images.length; // Avança para a próxima imagem
@@ -78,6 +79,7 @@ function isPuzzleComplete() {
 // Função para reiniciar o quebra-cabeça
 function resetPuzzle() {
     puzzleContainer.innerHTML = ''; // Limpa as peças atuais
+    console.log("Reiniciando o quebra-cabeça com a imagem: " + images[currentImageIndex]); // Debugging
     createPuzzle(images[currentImageIndex]); // Carrega a próxima imagem
 }
 
